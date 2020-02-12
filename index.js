@@ -1,6 +1,6 @@
 // Globals
 const LOG = true;
-const INTERVAL = 1; // Seconds
+const INTERVAL = 5; // Seconds
 
 // Imports
 const notify = require('node-notifier');
@@ -24,8 +24,8 @@ const conn = mysql.createConnection({
 
 conn.connect(err => {
   if(err) {
-    throw err;
     notify.notify("Error connecting to database. Aborting");
+    throw err;
     process.exit();
   }
   log('Connected to database');
@@ -43,5 +43,9 @@ conn.connect(err => {
 
 function sendWord() {
   const randomWord = keys[Math.floor(Math.random() * keys.length)];
-  notify.notify(randomWord + ": " + words[randomWord]);
+  notify.notify({
+    'title': randomWord,
+    'message': words[randomWord],
+    'sound': '/usr/share/sounds/gnome/default/alerts/bark.ogg'
+  });
 }
