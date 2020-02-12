@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/CodeMicah/LaoNotifications/issues"
   },
-  "homepage": "https://github.com/CodeMicah/LaoNotifications#readme"
+  "homepage": "https://github.com/CodeMicah/LaoNotifications#readme",
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "node-notifier": "^6.0.0",
+    "play-sound": "^1.1.3"
+  }
 }

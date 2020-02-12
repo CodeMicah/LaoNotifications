@@ -1,11 +1,12 @@
 // Globals
 const LOG = true;
 const INTERVAL = 5; // Seconds
-
+const SOUND = '/usr/share/sounds/gnome/default/alerts/bark.ogg';
 // Imports
 const notify = require('node-notifier');
 const mysql = require('mysql');
 const auth = require('./mysqlAuth.js');
+const soundplay = require('play-sound')(opts = {});
 
 // Logging
 const log = LOG ? console.log : () => {};
@@ -43,9 +44,12 @@ conn.connect(err => {
 
 function sendWord() {
   const randomWord = keys[Math.floor(Math.random() * keys.length)];
+  soundplay.play(SOUND, { timeout: 300 }, function(err) {
+    if(err) throw err;
+  });
   notify.notify({
     'title': randomWord,
-    'message': words[randomWord],
-    'sound': '/usr/share/sounds/gnome/default/alerts/bark.ogg'
+    'message': words[randomWord]//,
+    //'sound': '/usr/share/sounds/gnome/default/alerts/bark.ogg'
   });
 }
